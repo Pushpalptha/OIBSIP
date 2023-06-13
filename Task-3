@@ -1,0 +1,35 @@
+import numpy as np
+import pandas as pd
+import nltk
+from nltk.corpus import stopwords
+import string
+import os
+for dirname, _, filenames in os.walk('/kaggle/input'):
+    for filename in filenames:
+        print(os.path.join(dirname, filename))
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+df = pd.read_csv("C:/Users/Lenovo/Desktop/spam.csv", encoding='ISO-8859-1')
+df
+df.columns
+df.info()
+df.isna().sum()
+df['v1']=df['v2'].apply(lambda x:1 if x=='v1' else 0)
+df.head(5)
+df = df.rename(columns={'v2': 'v2'})
+df
+from sklearn.pipeline import Pipeline
+clf=Pipeline([
+    ('vectorizer',CountVectorizer()),
+    ('nb',MultinomialNB())
+])
+X = df.iloc[:, :-1].values
+y = df.iloc[:, -1].values
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+clf.fit(X_train,y_train)
+emails=[
+    'Sounds great! Are you home now?',
+    'Will u meet ur dream partner soon? Is ur career off 2 a flyng start? 2 find out free, txt HORO followed by ur star sign, e. g. HORO ARIES'
+]
+clf.predict(emails)
+clf.score(X_test,y_test)
