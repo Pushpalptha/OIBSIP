@@ -1,0 +1,44 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+data = pd.read_csv("C:/Users/Lenovo/Desktop/unemployment.csv")
+data
+data.head()
+data.tail()
+data.sample()
+data.dtypes
+data.describe()
+data.isnull().sum()
+data.shape
+data.dropna(axis = 0, inplace = True)
+data.isnull().sum()
+data.shape
+data.columns
+data.rename(columns={' Date':'Date',
+                         ' Frequency':'Frequency',
+                         ' Estimated Unemployment Rate (%)':'Estimated Unemployment Rate (%)',
+                        ' Estimated Employed':'Estimated Employed',
+                        ' Estimated Labour Participation Rate (%)':'Estimated Labour Participation Rate (%)'},inplace=True)
+ data.columns
+ data[data.duplicated()]
+ data.duplicated().sum()
+ data['Date']=pd.to_datetime(data['Date'])
+ data.dtypes
+data['day']=data['Date'].dt.day
+data['month']=data['Date'].dt.month_name()
+data['year']=data['Date'].dt.year
+data.head()
+data.columns
+data['Region'].unique()
+import seaborn as sns
+sns.countplot(x=data['Area'],palette = "Set2")
+plt.show()
+sns.heatmap(data[['Estimated Unemployment Rate (%)',
+                'Estimated Employed',
+                'Estimated Labour Participation Rate (%)']].corr(),
+            annot=True
+           )
+plt.show()
+data.plot(kind="scatter", x='Estimated Unemployment Rate (%)', y='year')
+plt.ylim(2018,2022)
+plt.show()
+data.plot(kind="scatter", x='Estimated Labour Participation Rate (%)', y='Region')
