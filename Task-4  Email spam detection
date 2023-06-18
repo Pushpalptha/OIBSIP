@@ -23,10 +23,6 @@ clf=Pipeline([
     ('vectorizer',CountVectorizer()),
     ('nb',MultinomialNB())
 ])
-X = df.iloc[:, :-1].values
-y = df.iloc[:, -1].values
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
-clf.fit(X_train,y_train)
 emails=[
     'Sounds great! Are you home now?',
     'Will u meet ur dream partner soon? Is ur career off 2 a flyng start? 2 find out free, txt HORO followed by ur star sign, e. g. HORO ARIES'
